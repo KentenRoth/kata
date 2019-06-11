@@ -16,7 +16,14 @@ const leaveBeforeStart = (start, leave) => {
 	return startBefore <= leaveAfter ? true : false;
 };
 
+const workableHours = (start, leave) => {
+	return hoursCheck(start, leave) && leaveBeforeStart(start, leave)
+		? true
+		: false;
+};
+
 module.exports = {
 	hoursCheck,
-	leaveBeforeStart
+	leaveBeforeStart,
+	workableHours
 };

@@ -1,4 +1,4 @@
-const { hoursCheck, leaveBeforeStart } = require('./babysitter');
+const { hoursCheck, leaveBeforeStart, workableHours } = require('./babysitter');
 
 describe('Checking to make sure times are valid.  Need to be between 5pm and 4am, also leave time cannot be before start time', () => {
 	it('should return false with the start time being to early,', () => {
@@ -19,5 +19,15 @@ describe('Checking to make sure times are valid.  Need to be between 5pm and 4am
 
 	it('should return true with a start time of 10 and leave time of 3', () => {
 		expect(leaveBeforeStart(10, 3)).toBe(true);
+	});
+
+	it('should return false with start time being to early, workable hours to late, or start after leave', () => {
+		expect(workableHours(4, 12)).toBe(false);
+		expect(workableHours(2, 5)).toBe(false);
+		expect(workableHours(1, 12)).toBe(false);
+	});
+
+	it('should return true with valid working hours', () => {
+		expect(workableHours(7, 3)).toBe(true);
 	});
 });
