@@ -37,6 +37,27 @@ const familyA = (start, leave) => {
 };
 
 // Family B - $12 hourly before 10pm, $8 hourly between 10 - 12, $16 hourly after 12
+const familyB = (start, leave) => {
+	const startTime = hours.indexOf(start);
+	const leaveIndex = hours.indexOf(leave);
+	const leaveTime = hours.slice(0, leaveIndex);
+	let payment = 0;
+
+	if (workableHours(start, leave) !== true) {
+		return 'Please check the hours entered';
+	}
+
+	for (i = startTime; leaveTime.length > i; i++) {
+		if (i <= 4) {
+			payment += 12;
+		} else if (i <= 6) {
+			payment += 8;
+		} else {
+			payment += 16;
+		}
+	}
+	return payment;
+};
 
 // Family C - $21 hourly before 9pm, $15 hourly after
 
@@ -44,5 +65,6 @@ module.exports = {
 	hoursCheck,
 	leaveBeforeStart,
 	workableHours,
-	familyA
+	familyA,
+	familyB
 };
