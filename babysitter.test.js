@@ -99,3 +99,29 @@ describe('Checking to see the payment for hours worked for family B', () => {
 		expect(nightlyPayment('familyB', 6, 3)).toBe(112); // 4 hours at $12 = $48, 2 hours at $8 = $16, 3 hours at $16 = $48
 	});
 });
+
+describe('Checking to see the payment for hours worked for family C', () => {
+	it('should return "Please check the hours entered" if the times are not valid', () => {
+		expect(nightlyPayment('familyC', 4, 10)).toBe(
+			'Please check the hours entered'
+		);
+		expect(nightlyPayment('familyC', 10, 5)).toBe(
+			'Please check the hours entered'
+		);
+		expect(nightlyPayment('familyC', 3, 12)).toBe(
+			'Please check the hours entered'
+		);
+	});
+
+	it('should return 84 for working 5 to 9 and only working early hours', () => {
+		expect(nightlyPayment('familyC', 5, 9)).toBe(84); // 4 hours at $21 = $84
+	});
+
+	it('should return 60 for working 10 to 2 and only working late hours', () => {
+		expect(nightlyPayment('familyC', 10, 2)).toBe(60); // 4 hours at $15 = $60
+	});
+
+	it('should return for working 6 to 1 and working both early and late hours', () => {
+		expect(nightlyPayment('familyC', 6, 1)).toBe(123); // 3 hours at $21 =63,  and 4 hours at $15 = $60
+	});
+});

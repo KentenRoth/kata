@@ -29,6 +29,8 @@ const nightlyPayment = (family, start, leave) => {
 			return familyA(startTime, leaveTime);
 		case 'familyB':
 			return familyB(startTime, leaveTime);
+		case 'familyC':
+			return familyC(startTime, leaveTime);
 	}
 };
 
@@ -51,6 +53,13 @@ const familyB = (start, leave) => {
 };
 
 // Family C - $21 hourly before 9pm, $15 hourly after
+const familyC = (start, leave) => {
+	let payment = 0;
+	for (i = start; leave.length > i; i++) {
+		i <= 3 ? (payment += 21) : (payment += 15);
+	}
+	return payment;
+};
 
 module.exports = {
 	hoursCheck,
