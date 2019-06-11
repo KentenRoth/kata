@@ -17,8 +17,8 @@ const workableHours = (start, leave) =>
 
 const nightlyPayment = (family, start, leave) => {
 	const startTime = hours.indexOf(start);
-	const leaveIndex = hours.indexOf(leave);
-	const leaveTime = hours.slice(0, leaveIndex);
+	const leaveTime = hours.slice(0, hours.indexOf(leave));
+	payment = 0;
 
 	if (workableHours(start, leave) !== true) {
 		return 'Please check the hours entered';
@@ -31,12 +31,13 @@ const nightlyPayment = (family, start, leave) => {
 			return familyB(startTime, leaveTime);
 		case 'familyC':
 			return familyC(startTime, leaveTime);
+		default:
+			return 'Please check family name';
 	}
 };
 
 // Family A - $15 hourly before 11pm, $20 hourly rest of night
 const familyA = (start, leave) => {
-	let payment = 0;
 	for (i = start; leave.length > i; i++) {
 		i <= 5 ? (payment += 15) : (payment += 20);
 	}
@@ -45,7 +46,6 @@ const familyA = (start, leave) => {
 
 // Family B - $12 hourly before 10pm, $8 hourly between 10 - 12, $16 hourly after 12
 const familyB = (start, leave) => {
-	let payment = 0;
 	for (i = start; leave.length > i; i++) {
 		i <= 4 ? (payment += 12) : i <= 6 ? (payment += 8) : (payment += 16);
 	}
@@ -54,7 +54,6 @@ const familyB = (start, leave) => {
 
 // Family C - $21 hourly before 9pm, $15 hourly after
 const familyC = (start, leave) => {
-	let payment = 0;
 	for (i = start; leave.length > i; i++) {
 		i <= 3 ? (payment += 21) : (payment += 15);
 	}

@@ -125,3 +125,11 @@ describe('Checking to see the payment for hours worked for family C', () => {
 		expect(nightlyPayment('familyC', 6, 1)).toBe(123); // 3 hours at $21 =63,  and 4 hours at $15 = $60
 	});
 });
+
+describe('Checking to make sure default runs if incorrect family name is entered', () => {
+	it('should return "Please check family name" if an invalid family name is entered', () => {
+		expect(nightlyPayment('familyD', 8, 12)).toBe(
+			'Please check family name'
+		);
+	});
+});
