@@ -5,11 +5,8 @@ hours = [5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4];
 const hoursCheck = (start, leave) => {
 	const startTime = hours.slice(0, 10).includes(start);
 	const leaveTime = hours.slice(1, 11).includes(leave);
-	if (startTime === false || leaveTime === false) {
-		return false;
-	} else {
-		return true;
-	}
+
+	return startTime && leaveTime ? true : false;
 };
 
 module.exports = {
