@@ -1,5 +1,9 @@
 # Babysitter Kata
 
+I have included the node modules in the repo
+
+The only thing needed to run the tests is to cd into the kata folder and run `npm test`
+
 # Background
 
 This kata simulates a babysitter working and getting paid for one night. The rules are pretty straight forward.
