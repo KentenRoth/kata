@@ -9,6 +9,14 @@ const hoursCheck = (start, leave) => {
 	return startTime && leaveTime ? true : false;
 };
 
+const leaveBeforeStart = (start, leave) => {
+	const startBefore = hours.indexOf(start);
+	const leaveAfter = hours.indexOf(leave) - 1;
+
+	return startBefore <= leaveAfter ? true : false;
+};
+
 module.exports = {
-	hoursCheck
+	hoursCheck,
+	leaveBeforeStart
 };
