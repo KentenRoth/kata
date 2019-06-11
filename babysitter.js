@@ -15,46 +15,37 @@ const leaveBeforeStart = (start, leave) =>
 const workableHours = (start, leave) =>
 	hoursCheck(start, leave) && leaveBeforeStart(start, leave) ? true : false;
 
-// Family A - $15 hourly before 11pm, $20 hourly rest of night
-const familyA = (start, leave) => {
+const nightlyPayment = (family, start, leave) => {
 	const startTime = hours.indexOf(start);
 	const leaveIndex = hours.indexOf(leave);
 	const leaveTime = hours.slice(0, leaveIndex);
-	let payment = 0;
 
 	if (workableHours(start, leave) !== true) {
 		return 'Please check the hours entered';
 	}
 
-	for (i = startTime; leaveTime.length > i; i++) {
-		if (i <= 5) {
-			payment += 15;
-		} else {
-			payment += 20;
-		}
+	switch (family) {
+		case 'familyA':
+			return familyA(startTime, leaveTime);
+		case 'familyB':
+			return familyB(startTime, leaveTime);
+	}
+};
+
+// Family A - $15 hourly before 11pm, $20 hourly rest of night
+const familyA = (start, leave) => {
+	let payment = 0;
+	for (i = start; leave.length > i; i++) {
+		i <= 5 ? (payment += 15) : (payment += 20);
 	}
 	return payment;
 };
 
 // Family B - $12 hourly before 10pm, $8 hourly between 10 - 12, $16 hourly after 12
 const familyB = (start, leave) => {
-	const startTime = hours.indexOf(start);
-	const leaveIndex = hours.indexOf(leave);
-	const leaveTime = hours.slice(0, leaveIndex);
 	let payment = 0;
-
-	if (workableHours(start, leave) !== true) {
-		return 'Please check the hours entered';
-	}
-
-	for (i = startTime; leaveTime.length > i; i++) {
-		if (i <= 4) {
-			payment += 12;
-		} else if (i <= 6) {
-			payment += 8;
-		} else {
-			payment += 16;
-		}
+	for (i = start; leave.length > i; i++) {
+		i <= 4 ? (payment += 12) : i <= 6 ? (payment += 8) : (payment += 16);
 	}
 	return payment;
 };
@@ -65,6 +56,5 @@ module.exports = {
 	hoursCheck,
 	leaveBeforeStart,
 	workableHours,
-	familyA,
-	familyB
+	nightlyPayment
 };
